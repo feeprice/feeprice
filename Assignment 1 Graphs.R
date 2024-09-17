@@ -2,6 +2,7 @@
 library(tidyverse)
 library(ggplot2)
 library(here)
+library(dplyr)
 
 #load data
 eno_outflows <- read.csv(
@@ -16,4 +17,80 @@ neuse_inflows <- read.csv(
   file = here("./Data Raw/Falls_Lake_outlet_Neuse_River_monthly_flow_data_through-2022.csv"),
   stringsAsFactors = TRUE)
 
+#Eno graphs - 1985 and beyond
+eno_filtered <- eno_outflows %>% 
+  filter(year >= 1985)
+
+ggplot(data = (eno_filtered)) +
+  geom_col(data = eno_filtered, aes(x = year, y = median_flow)) +
+  labs(title = "Median Eno Outflow", x = "Year", y = "Median Outflow (in Acre-Feet)")
+ggplot(data = eno_filtered, aes(x = year, y = median_flow)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Median Eno Outflow", x = "Year", y = "Median Inflow (in Acre-Feet)")
+
+ggplot(data = eno_filtered) +
+  geom_col(data = eno_filtered, aes(x = year, y = mean_flow)) +
+  labs(title = "Mean Eno Outflow", x = "Year", y = "Mean Outflow (in Acre-Feet)")
+ggplot(data = eno_filtered, aes(x = year, y = mean_flow)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Mean Eno Outflow", x = "Year", y = "Mean Inflow (in Acre-Feet)")
+
+#Eno graphs - all years
+ggplot(data = (eno_outflows)) +
+  geom_col(data = eno_outflows, aes(x = year, y = median_flow)) +
+  labs(title = "Median Eno Outflow", x = "Year", y = "Median Outflow (in Acre-Feet)")
+ggplot(data = eno_outflows, aes(x = year, y = median_flow)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Median Eno Outflow", x = "Year", y = "Median Inflow (in Acre-Feet)")
+
+ggplot(data = eno_outflows) +
+  geom_col(data = eno_outflows, aes(x = year, y = mean_flow)) +
+  labs(title = "Mean Eno Outflow", x = "Year", y = "Mean Outflow (in Acre-Feet)")
+ggplot(data = eno_outflows, aes(x = year, y = mean_flow)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Mean Eno Outflow", x = "Year", y = "Mean Inflow (in Acre-Feet)")
+
+
+#Flat graphs - 1985 and beyond
+flat_filtered <- flat_outflows %>% 
+  filter(year >= 1985)
+
+ggplot(data = (flat_filtered)) +
+  geom_col(data = flat_filtered, aes(x = year, y = median_flow)) +
+  labs(title = "Median Flat Outflow", x = "Year", y = "Median Outflow (in Acre-Feet)")
+
+ggplot(data = flat_filtered) +
+  geom_col(data = flat_filtered, aes(x = year, y = mean_flow)) +
+  labs(title = "Mean Flat Outflow", x = "Year", y = "Mean Outflow (in Acre-Feet)")
+
+#Flat graphs - all years
+ggplot(data = (flat_outflows)) +
+  geom_col(data = flat_outflows, aes(x = year, y = median_flow)) +
+  labs(title = "Median Flat Outflow", x = "Year", y = "Median Outflow (in Acre-Feet)")
+
+ggplot(data = flat_outflows) +
+  geom_col(data = flat_outflows, aes(x = year, y = mean_flow)) +
+  labs(title = "Mean Flat Outflow", x = "Year", y = "Mean Outflow (in Acre-Feet)")
+
+#Neuse graphs - all years
+ggplot(data = (neuse_inflows)) +
+  geom_col(data = neuse_inflows, aes(x = year, y = median_flow)) +
+  labs(title = "Median Neuse Inflow", x = "Year", y = "Median Inflow (in Acre-Feet)")
+ggplot(data = neuse_inflows, aes(x = year, y = median_flow)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Median Neuse Inflow", x = "Year", y = "Median Inflow (in Acre-Feet)")
+
+ggplot(data = neuse_inflows) +
+  geom_col(data = neuse_inflows, aes(x = year, y = mean_flow)) +
+  labs(title = "Mean Neuse Inflow", x = "Year", y = "Mean Inflow (in Acre-Feet)")
+ggplot(data = neuse_inflows, aes(x = year, y = mean_flow)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Mean Neuse Inflow", x = "Year", y = "Mean Inflow (in Acre-Feet)")
+  
 
