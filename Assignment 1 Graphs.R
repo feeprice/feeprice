@@ -62,10 +62,18 @@ flat_filtered <- flat_outflows %>%
 ggplot(data = (flat_filtered)) +
   geom_col(data = flat_filtered, aes(x = year, y = median_flow)) +
   labs(title = "Median Flat Outflow", x = "Year", y = "Median Outflow (in Acre-Feet)")
+ggplot(data = flat_filtered, aes(x = year, y = median_flow)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Median Flat Outflow", x = "Year", y = "Median Inflow (in Acre-Feet)")
 
 ggplot(data = flat_filtered) +
   geom_col(data = flat_filtered, aes(x = year, y = mean_flow)) +
   labs(title = "Mean Flat Outflow", x = "Year", y = "Mean Outflow (in Acre-Feet)")
+ggplot(data = flat_filtered, aes(x = year, y = median_flow)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Mean Flat Outflow", x = "Year", y = "Mean Inflow (in Acre-Feet)")
 
 #Flat graphs - all years
 ggplot(data = (flat_outflows)) +
