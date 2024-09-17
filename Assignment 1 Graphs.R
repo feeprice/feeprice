@@ -79,10 +79,18 @@ ggplot(data = flat_filtered, aes(x = year, y = median_flow)) +
 ggplot(data = (flat_outflows)) +
   geom_col(data = flat_outflows, aes(x = year, y = median_flow)) +
   labs(title = "Median Flat Outflow", x = "Year", y = "Median Outflow (in Acre-Feet)")
+ggplot(data = flat_outflows, aes(x = year, y = median_flow)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Median Flat Outflow", x = "Year", y = "Median Inflow (in Acre-Feet)")
 
 ggplot(data = flat_outflows) +
   geom_col(data = flat_outflows, aes(x = year, y = mean_flow)) +
   labs(title = "Mean Flat Outflow", x = "Year", y = "Mean Outflow (in Acre-Feet)")
+ggplot(data = flat_outflows, aes(x = year, y = mean_flow)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Median Flat Outflow", x = "Year", y = "Median Inflow (in Acre-Feet)")
 
 #Neuse graphs - all years
 ggplot(data = (neuse_inflows)) +
