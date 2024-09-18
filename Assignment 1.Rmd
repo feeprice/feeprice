@@ -1,6 +1,8 @@
 ---
-title: "Assignment 1: Aidan Power, Fiona Price, and Emily Burghart"
-output: html_document
+title: 'Assignment 1: Aidan Power, Fiona Price, and Emily Burghart'
+output:
+  pdf_document: default
+  html_document: default
 date: "2024-09-18"
 ---
 
@@ -12,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Loading in the packages:
 
-```{r setup}
+```{r packages}
 library(tidyverse)
 library(ggplot2)
 library(here)
