@@ -91,7 +91,7 @@ neuse_volume_mean <- neuse_inflows %>%
 Now, we will start making graphs. First, we will look at Eno. We will start with
 all years.
 
-```{r Eno all, echo=FALSE}
+```{r Eno all, echo=TRUE}
 #Median Eno outflow
 ggplot(data = (eno_outflows)) +
   geom_col(data = eno_outflows, aes(x = year, y = median_flow)) +
@@ -123,7 +123,7 @@ ggplot(data = eno_volume_mean, aes(x = year, y = avg_vol)) +
 There is a gap in Eno data from 1971-1985. Now, we will look only at the post-1985
 data.
 
-```{r Eno 1985 and beyond, echo=FALSE}
+```{r Eno 1985 and beyond, echo=TRUE}
 #Filter out the data to only include 1985 and beyond.
 eno_filtered <- eno_outflows %>% 
   filter(year >= 1985)
@@ -166,7 +166,7 @@ ggplot(data = eno_vol_filtered, aes(x = year, y = avg_vol)) +
 ```
 
 Lastly, we will look at only years 2000 and beyond to capture recent trends.
-```{r Eno 2000 and beyond, echo=FALSE}
+```{r Eno 2000 and beyond, echo=TRUE}
 #Filter out the data to only include 2000 and beyond.
 eno_2000 <- eno_outflows %>% 
   filter(year >= 2000)
@@ -209,7 +209,7 @@ ggplot(data = eno_2000_volume, aes(x = year, y = avg_vol)) +
 ```
 
 Now, we will look at Flat data.
-```{r Flat all, echo=FALSE}
+```{r Flat all, echo=TRUE}
 #Median Flat outflow
 ggplot(data = (flat_outflows)) +
   geom_col(data = flat_outflows, aes(x = year, y = median_flow)) +
@@ -239,7 +239,7 @@ ggplot(data = flat_volume_mean, aes(x = year, y = avg_vol)) +
 ```
 
 Now we will look at only years 2000 and beyond to capture recent trends.
-```{r Flat 2000 and beyond, echo=FALSE}
+```{r Flat 2000 and beyond, echo=TRUE}
 #Filter out the data to only include 2000 and beyond.
 flat_2000 <- flat_outflows %>% 
   filter(year >= 2000)
@@ -282,7 +282,7 @@ ggplot(data = flat_2000_volume, aes(x = year, y = avg_vol)) +
 ```
 
 Finally, we will look at Neuse inflows.
-```{r Neuse all, echo=FALSE}
+```{r Neuse all, echo=TRUE}
 #Median Neuse inflow
 ggplot(data = (neuse_inflows)) +
   geom_col(data = neuse_inflows, aes(x = year, y = median_flow)) +
@@ -312,7 +312,7 @@ ggplot(data = neuse_volume_mean, aes(x = year, y = avg_vol)) +
 ```
 
 And now with only 2000 and beyond:
-```{r Neuse 2000 and beyond, echo=FALSE}
+```{r Neuse 2000 and beyond, echo=TRUE}
 #Filter out the data to only include 2000 and beyond.
 neuse_2000 <- neuse_inflows %>% 
   filter(year >= 2000)
