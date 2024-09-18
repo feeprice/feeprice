@@ -1,5 +1,5 @@
 ---
-title: "Assignment 1"
+title: "Assignment 1: Aidan Power, Fiona Price, and Emily Burghart"
 output: html_document
 date: "2024-09-18"
 ---
@@ -86,11 +86,268 @@ neuse_volume_mean <- neuse_inflows %>%
 ```
 
 ## Plots
+Now, we will start making graphs. First, we will look at Eno. We will start with
+all years.
 
+```{r Eno all, echo=FALSE}
+#Median Eno outflow
+ggplot(data = (eno_outflows)) +
+  geom_col(data = eno_outflows, aes(x = year, y = median_flow)) +
+  labs(title = "Median Eno Outflow", x = "Year", y = "Median Outflow (in Acre-Feet)")
+ggplot(data = eno_average_median, aes(x = year, y = avg_median_flow)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Median Eno Outflow", x = "Year", y = "Median Inflow (in Acre-Feet)")
 
+#Mean Eno outflow
+ggplot(data = eno_outflows) +
+  geom_col(data = eno_outflows, aes(x = year, y = mean_flow)) +
+  labs(title = "Mean Eno Outflow", x = "Year", y = "Mean Outflow (in Acre-Feet)")
+ggplot(data = eno_average_mean, aes(x = year, y = avg_mean_flow)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Mean Eno Outflow", x = "Year", y = "Mean Inflow (in Acre-Feet)")
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+#Mean volume
+ggplot(data = eno_volume_mean) +
+  geom_col(data = eno_volume_mean, aes(x = year, y = avg_vol)) +
+  labs(title = "Mean Eno Volume", x = "Year", y = "Mean Volume (in Acre-Feet)")
+ggplot(data = eno_volume_mean, aes(x = year, y = avg_vol)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Mean Eno Volume", x = "Year", y = "Mean Volume (in Acre-Feet)")
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+There is a gap in Eno data from 1971-1985. Now, we will look only at the post-1985
+data.
+
+```{r Eno 1985 and beyond, echo=FALSE}
+#Filter out the data to only include 1985 and beyond.
+eno_filtered <- eno_outflows %>% 
+  filter(year >= 1985)
+#Filter out the average median outflow data to only include 1985 and beyond.
+eno_avemedian_filtered <- eno_average_median %>% 
+  filter(year >= 1985)
+#Filter out the average mean outflow data to only include 1985 and beyond.
+eno_avemean_filtered <- eno_average_mean %>% 
+  filter(year >= 1985)
+#Filter out the average volume data to only include 1985 and beyond.
+eno_vol_filtered <- eno_volume_mean %>% 
+  filter(year >= 1985)
+
+#Median Eno outflow
+ggplot(data = (eno_filtered)) +
+  geom_col(data = eno_filtered, aes(x = year, y = median_flow)) +
+  labs(title = "Median Eno Outflow", x = "Year", y = "Median Outflow (in Acre-Feet)")
+ggplot(data = eno_avemedian_filtered, aes(x = year, y = avg_median_flow)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Median Eno Outflow", x = "Year", y = "Median Outflow (in Acre-Feet)")
+
+#Mean Eno outflow
+ggplot(data = eno_filtered) +
+  geom_col(data = eno_filtered, aes(x = year, y = mean_flow)) +
+  labs(title = "Mean Eno Outflow", x = "Year", y = "Mean Outflow (in Acre-Feet)")
+ggplot(data = eno_avemean_filtered, aes(x = year, y = avg_mean_flow)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Mean Eno Outflow", x = "Year", y = "Mean Inflow (in Acre-Feet)")
+
+#Mean Eno volume
+ggplot(data = eno_vol_filtered) +
+  geom_col(data = eno_vol_filtered, aes(x = year, y = avg_vol)) +
+  labs(title = "Mean Eno Volume", x = "Year", y = "Mean Volume (in Acre-Feet)")
+ggplot(data = eno_vol_filtered, aes(x = year, y = avg_vol)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Mean Eno Volume", x = "Year", y = "Mean Volume (in Acre-Feet)")
+```
+
+Lastly, we will look at only years 2000 and beyond to capture recent trends.
+```{r Eno 2000 and beyond, echo=FALSE}
+#Filter out the data to only include 2000 and beyond.
+eno_2000 <- eno_outflows %>% 
+  filter(year >= 2000)
+#Filter out the average median outflow data to only include 2000 and beyond.
+eno_2000_median <- eno_average_median %>% 
+  filter(year >= 2000)
+#Filter out the average mean outflow data to only include 2000 and beyond.
+eno_2000_mean <- eno_average_mean %>% 
+  filter(year >= 2000)
+#Filter out the average volume data to only include 2000 and beyond.
+eno_2000_volume <- eno_volume_mean %>% 
+  filter(year >= 2000)
+
+#Median Eno outflow
+ggplot(data = eno_2000) +
+  geom_col(data = eno_2000, aes(x = year, y = median_flow)) +
+  labs(title = "Median Flat Outflow", x = "Year", y = "Median Outflow (in Acre-Feet)")
+ggplot(data = eno_2000_median, aes(x = year, y = avg_median_flow)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Median Flat Outflow", x = "Year", y = "Median Outflow (in Acre-Feet)")
+
+#Mean Eno outflow
+ggplot(data = eno_2000) +
+  geom_col(data = eno_2000, aes(x = year, y = mean_flow)) +
+  labs(title = "Mean Flat Outflow", x = "Year", y = "Mean Outflow (in Acre-Feet)")
+ggplot(data = eno_2000_mean, aes(x = year, y = avg_mean_flow)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Mean Flat Outflow", x = "Year", y = "Mean Outflow (in Acre-Feet)")
+
+#Mean Eno volume
+ggplot(data = eno_2000_volume) +
+  geom_col(data = eno_2000_volume, aes(x = year, y = avg_vol)) +
+  labs(title = "Mean Eno Volume", x = "Year", y = "Mean Volume (in Acre-Feet)")
+ggplot(data = eno_2000_volume, aes(x = year, y = avg_vol)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Mean Eno Volume", x = "Year", y = "Mean Volume (in Acre-Feet)")
+```
+
+Now, we will look at Flat data.
+```{r Flat all, echo=FALSE}
+#Median Flat outflow
+ggplot(data = (flat_outflows)) +
+  geom_col(data = flat_outflows, aes(x = year, y = median_flow)) +
+  labs(title = "Median Flat Outflow", x = "Year", y = "Median Outflow (in Acre-Feet)")
+ggplot(data = flat_average_median, aes(x = year, y = avg_median_flow)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Median Flat Outflow", x = "Year", y = "Median Outflow (in Acre-Feet)")
+
+#Mean Flat outflow
+ggplot(data = (flat_outflows)) +
+  geom_col(data = flat_outflows, aes(x = year, y = mean_flow)) +
+  labs(title = "Mean Flat Outflow", x = "Year", y = "Mean Outflow (in Acre-Feet)")
+ggplot(data = flat_average_mean, aes(x = year, y = avg_mean_flow)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Mean Flat Outflow", x = "Year", y = "Mean Outflow (in Acre-Feet)")
+
+#Mean volume
+ggplot(data = flat_volume_mean) +
+  geom_col(data = flat_volume_mean, aes(x = year, y = avg_vol)) +
+  labs(title = "Mean Flat Volume", x = "Year", y = "Mean Volume (in Acre-Feet)")
+ggplot(data = flat_volume_mean, aes(x = year, y = avg_vol)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Mean Flat Volume", x = "Year", y = "Mean Volume (in Acre-Feet)")
+```
+
+Now we will look at only years 2000 and beyond to capture recent trends.
+```{r Flat 2000 and beyond, echo=FALSE}
+#Filter out the data to only include 2000 and beyond.
+flat_2000 <- flat_outflows %>% 
+  filter(year >= 2000)
+#Filter out the average median outflow data to only include 2000 and beyond.
+flat_2000_median <- flat_average_median %>% 
+  filter(year >= 2000)
+#Filter out the average mean outflow data to only include 2000 and beyond.
+flat_2000_mean <- flat_average_mean %>% 
+  filter(year >= 2000)
+#Filter out the average volume data to only include 2000 and beyond.
+flat_2000_volume <- flat_volume_mean %>% 
+  filter(year >= 2000)
+
+#Median Flat outflow
+ggplot(data = flat_2000) +
+  geom_col(data = flat_2000, aes(x = year, y = median_flow)) +
+  labs(title = "Median Flat Outflow", x = "Year", y = "Median Outflow (in Acre-Feet)")
+ggplot(data = flat_2000_median, aes(x = year, y = avg_median_flow)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Median Flat Outflow", x = "Year", y = "Median Outflow (in Acre-Feet)")
+
+#Mean Flat outflow
+ggplot(data = flat_2000) +
+  geom_col(data = flat_2000, aes(x = year, y = mean_flow)) +
+  labs(title = "Mean Flat Outflow", x = "Year", y = "Mean Outflow (in Acre-Feet)")
+ggplot(data = flat_2000_mean, aes(x = year, y = avg_mean_flow)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Mean Flat Outflow", x = "Year", y = "Mean Outflow (in Acre-Feet)")
+
+#Mean Flat volume
+ggplot(data = flat_2000_volume) +
+  geom_col(data = flat_2000_volume, aes(x = year, y = avg_vol)) +
+  labs(title = "Mean Flat Volume", x = "Year", y = "Mean Volume (in Acre-Feet)")
+ggplot(data = flat_2000_volume, aes(x = year, y = avg_vol)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Mean Flat Volume", x = "Year", y = "Mean Volume (in Acre-Feet)")
+```
+
+Finally, we will look at Neuse inflows.
+```{r Neuse all, echo=FALSE}
+#Median Neuse inflow
+ggplot(data = (neuse_inflows)) +
+  geom_col(data = neuse_inflows, aes(x = year, y = median_flow)) +
+  labs(title = "Median Neuse Inflow", x = "Year", y = "Median Inflow (in Acre-Feet)")
+ggplot(data = neuse_average_median, aes(x = year, y = avg_median_flow)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Median Neuse Inflow", x = "Year", y = "Median Inflow (in Acre-Feet)")
+
+#Mean Neuse inflow
+ggplot(data = neuse_inflows) +
+  geom_col(data = neuse_inflows, aes(x = year, y = mean_flow)) +
+  labs(title = "Mean Neuse Inflow", x = "Year", y = "Mean Inflow (in Acre-Feet)")
+ggplot(data = neuse_average_mean, aes(x = year, y = avg_mean_flow)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Mean Neuse Inflow", x = "Year", y = "Mean Inflow (in Acre-Feet)")
+
+#Mean volume
+ggplot(data = neuse_volume_mean) +
+  geom_col(data = neuse_volume_mean, aes(x = year, y = avg_vol)) +
+  labs(title = "Mean Neuse Volume", x = "Year", y = "Mean Volume (in Acre-Feet)")
+ggplot(data = neuse_volume_mean, aes(x = year, y = avg_vol)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Mean Neuse Volume", x = "Year", y = "Mean Volume (in Acre-Feet)")
+```
+
+And now with only 2000 and beyond:
+```{r Neuse 2000 and beyond, echo=FALSE}
+#Filter out the data to only include 2000 and beyond.
+neuse_2000 <- neuse_inflows %>% 
+  filter(year >= 2000)
+#Filter out the average median outflow data to only include 2000 and beyond.
+neuse_2000_median <- neuse_average_median %>% 
+  filter(year >= 2000)
+#Filter out the average mean outflow data to only include 2000 and beyond.
+neuse_2000_mean <- neuse_average_mean %>% 
+  filter(year >= 2000)
+#Filter out the average volume data to only include 2000 and beyond.
+neuse_2000_volume <- neuse_volume_mean %>% 
+  filter(year >= 2000)
+
+#Median Neuse inflow
+ggplot(data = (neuse_2000)) +
+  geom_col(data = neuse_2000, aes(x = year, y = median_flow)) +
+  labs(title = "Median Neuse Inflow", x = "Year", y = "Median Inflow (in Acre-Feet)")
+ggplot(data = neuse_2000_median, aes(x = year, y = avg_median_flow)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Median Neuse Inflow", x = "Year", y = "Median Inflow (in Acre-Feet)")
+
+#Mean Neuse inflow
+ggplot(data = neuse_2000) +
+  geom_col(data = neuse_2000, aes(x = year, y = mean_flow)) +
+  labs(title = "Mean Neuse Inflow", x = "Year", y = "Mean Inflow (in Acre-Feet)")
+ggplot(data = neuse_2000_mean, aes(x = year, y = avg_mean_flow)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Mean Neuse Inflow", x = "Year", y = "Mean Inflow (in Acre-Feet)")
+
+#Mean Neuse volume
+ggplot(data = neuse_2000_volume) +
+  geom_col(data = neuse_2000_volume, aes(x = year, y = avg_vol)) +
+  labs(title = "Mean Neuse Volume", x = "Year", y = "Mean Volume (in Acre-Feet)")
+ggplot(data = neuse_2000_volume, aes(x = year, y = avg_vol)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Mean Neuse Volume", x = "Year", y = "Mean Volume (in Acre-Feet)")
+```
