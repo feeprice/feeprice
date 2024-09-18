@@ -1,0 +1,96 @@
+---
+title: "Assignment 1"
+output: html_document
+date: "2024-09-18"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Setting up the packages and data
+
+Loading in the packages:
+
+```{r setup}
+library(tidyverse)
+library(ggplot2)
+library(here)
+library(dplyr)
+```
+
+Now, we will load in the Eno data and make separate dataframes for the median 
+outflow, mean outflow, and volume.
+
+```{r Eno data}
+#Eno data:
+eno_outflows <- read.csv(
+  file = here("./Data Raw/Eno_River_monthly_flow_data_through-2022.csv"),
+  stringsAsFactors = TRUE)
+#Average of median outflow:
+eno_average_median <- eno_outflows %>% 
+  group_by(year) %>% 
+  summarise(avg_median_flow = mean(median_flow, na.rm = TRUE))
+#Average of mean outflow:
+eno_average_mean <- eno_outflows %>% 
+  group_by(year) %>% 
+  summarise(avg_mean_flow = mean(mean_flow, na.rm = TRUE))
+#Average of volume:
+eno_volume_mean <- eno_outflows %>% 
+  group_by(year) %>% 
+  summarise(avg_vol = mean(total_volume, na.rm = TRUE))
+```
+
+Now, we will load in the Flat data and make separate dataframes for the median 
+outflow, mean outflow, and volume.
+
+```{r Flats data}
+#Flats data:
+flat_outflows <- read.csv(
+  file = here("./Data Raw/Flat_River_monthly_flow_data_through-2022.csv"),
+  stringsAsFactors = TRUE)
+#Average of median outflow:
+flat_average_median <- flat_outflows %>% 
+  group_by(year) %>% 
+  summarise(avg_median_flow = mean(median_flow, na.rm = TRUE))
+#Average of mean outflow:
+flat_average_mean <- flat_outflows %>% 
+  group_by(year) %>% 
+  summarise(avg_mean_flow = mean(mean_flow, na.rm = TRUE))
+#Average of volume:
+flat_volume_mean <- flat_outflows %>% 
+  group_by(year) %>% 
+  summarise(avg_vol = mean(total_volume, na.rm = TRUE))
+```
+
+Now, we will load in the Neuse data and make separate dataframes for the median 
+inflow, mean inflow, and volume.
+
+```{r Neuse data}
+#Neuse data:
+neuse_inflows <- read.csv(
+  file = here("./Data Raw/Falls_Lake_outlet_Neuse_River_monthly_flow_data_through-2022.csv"),
+  stringsAsFactors = TRUE)
+#Average of median inflow:
+neuse_average_median <- neuse_inflows %>% 
+  group_by(year) %>% 
+  summarise(avg_median_flow = mean(median_flow, na.rm = TRUE))
+#Average of mean inflow:
+neuse_average_mean <- neuse_inflows %>% 
+  group_by(year) %>% 
+  summarise(avg_mean_flow = mean(mean_flow, na.rm = TRUE))
+#Average of volume:
+neuse_volume_mean <- neuse_inflows %>% 
+  group_by(year) %>% 
+  summarise(avg_vol = mean(total_volume, na.rm = TRUE))
+```
+
+## Plots
+
+
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
