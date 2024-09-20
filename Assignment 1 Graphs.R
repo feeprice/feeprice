@@ -182,6 +182,14 @@ ggplot(data = flat_average_median, aes(x = year, y = avg_median_flow)) +
   geom_smooth(method = "lm") +
   labs(title = "Median Flat Outflow", x = "Year", y = "Median Outflow (in Acre-Feet)")
 
+ggplot(data = (flat_outflows)) +
+  geom_col(data = flat_outflows, aes(x = year, y = mean_flow)) +
+  labs(title = "Mean Flat Outflow", x = "Year", y = "Mean Outflow (in Acre-Feet)")
+ggplot(data = flat_average_mean, aes(x = year, y = avg_mean_flow)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Mean Flat Outflow", x = "Year", y = "Mean Outflow (in Acre-Feet)")
+
 ggplot(data = flat_volume_mean) +
   geom_col(data = flat_volume_mean, aes(x = year, y = avg_vol)) +
   labs(title = "Mean Flat Volume", x = "Year", y = "Mean Volume (in Acre-Feet)")
