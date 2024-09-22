@@ -199,7 +199,7 @@ ggplot(data = eno_vol_filtered) +
   labs(title = "Mean Eno Volume", x = "Year", y = "Mean Volume (in Acre-Feet)")
 
 eno_vol_model_1981 <- lm(year ~ avg_vol, data = eno_vol_filtered)
-r_squared_6 <- summary(eno_vol_model_1985)$r.squared
+r_squared_6 <- summary(eno_vol_model_1981)$r.squared
 
 ggplot(data = eno_vol_filtered, aes(x = year, y = avg_vol)) +
   geom_point() +
