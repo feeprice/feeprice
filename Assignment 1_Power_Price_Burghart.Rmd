@@ -155,7 +155,7 @@ ggplot(data = eno_average_mean, aes(x = year, y = avg_mean_flow)) +
 ggplot(data = eno_volume_mean, aes(x = year, y = avg_vol)) +
   geom_line() +
   geom_smooth(method = "lm") +
-    annotate("text", x = 1973, y = 270000000, label = "-2.87 * 10^5 * x cfs/year", size = 2.5,
+    annotate("text", x = 1973, y = 270000000, label = "-2.87 * 10^5 * x cf/year", size = 2.5,
            family = "Times New Roman") +
   labs(title = "Average Eno Volume", x = "Year", y = "Mean Volume (cf)") +
   theme_minimal() +
@@ -323,7 +323,7 @@ ggplot(data = flat_average_mean, aes(x = year, y = avg_mean_flow)) +
 ggplot(data = flat_volume_mean, aes(x = year, y = avg_vol)) +
   geom_line() +
   geom_smooth(method = "lm") +
-  annotate("text", x = 1950, y = 630000000, label = "-6.07 * 10^4 * x cfs/year", size = 2.5,
+  annotate("text", x = 1950, y = 630000000, label = "-6.07 * 10^4 * x cf/year", size = 2.5,
            family = "Times New Roman") +
   labs(title = "Average Flat Volume", x = "Year", y = "Mean Volume (cf)") +
     theme_minimal() +
@@ -413,7 +413,7 @@ ggplot(data = flat_1981_mean, aes(x = year, y = avg_mean_flow)) +
 ggplot(data = flat_1981_volume, aes(x = year, y = avg_vol)) +
   geom_line() +
   geom_smooth(method = "lm") +
-      annotate("text", x = 1990, y = 630000000, label = "1.06 * 10^5 * x cfs/year", size = 2.5,
+      annotate("text", x = 1990, y = 630000000, label = "1.06 * 10^5 * x cf/year", size = 2.5,
            family = "Times New Roman") +
   labs(title = "Average Flat Volume Since 1981", x = "Year", y = "Mean Volume (cf") +
         theme_minimal() +
@@ -490,7 +490,7 @@ ggplot(data = neuse_average_mean, aes(x = year, y = avg_mean_flow)) +
 ggplot(data = neuse_volume_mean, aes(x = year, y = avg_vol)) +
   geom_line() +
   geom_smooth(method = "lm") +
- annotate("text", x = 2012, y = 2900000000, label = "-1.09 * 10^7 * x cfs/year", size = 2.5,
+ annotate("text", x = 2012, y = 2900000000, label = "-1.09 * 10^7 * x cf/year", size = 2.5,
            family = "Times New Roman") +
   labs(title = "Average Neuse Volume", x = "Year", y = "Mean Volume (cf)") +
   theme_minimal() +
@@ -581,7 +581,7 @@ ggplot(data = neuse_1981_mean, aes(x = year, y = avg_mean_flow)) +
 ggplot(data = neuse_1981_volume, aes(x = year, y = avg_vol)) +
   geom_line() +
   geom_smooth(method = "lm") +
-  annotate("text", x = 2012, y = 2800000000, label = "-5.36 * 10^6 * x cfs/year", size = 2.5,
+  annotate("text", x = 2012, y = 2800000000, label = "-5.36 * 10^6 * x cf/year", size = 2.5,
            family = "Times New Roman") +
   labs(title = "Average Neuse Volume since 1981", x = "Year", y = "Mean Volume (cf)") +
     theme_minimal() +
@@ -656,7 +656,7 @@ ggplot(data = combined, aes(x = year, y = combined_volume)) +
   scale_size_manual(values = c("FALSE" = 2, "TRUE" = 5)) +
   geom_vline(xintercept = 2023, linetype = "dashed", color = "red") + 
   theme_minimal() +
-    annotate("text", x = 1975, y = 900000000, label = "-3.46 * 10^5 * x cfs/year", size = 2.5,
+    annotate("text", x = 1975, y = 900000000, label = "-3.46 * 10^5 * x cf/year", size = 2.5,
            family = "Times New Roman") +
   labs(title = "Combined Inflow Volumes and Projected", x = "Year", y = "Volume (cf)") +
   theme(legend.position = "none") +
@@ -715,7 +715,7 @@ ggplot(data = neuse, aes(x = year, y = volume)) +
   scale_size_manual(values = c("FALSE" = 2, "TRUE" = 5)) +
   geom_vline(xintercept = 2023, linetype = "dashed", color = "red") + 
   theme_minimal() +
-  annotate("text", x = 2034, y = 2000000000, label = "-1.09 * 10^7 * x cfs/year", size = 2.5,
+  annotate("text", x = 2034, y = 2000000000, label = "-1.09 * 10^7 * x cf/year", size = 2.5,
            family = "Times New Roman") +
   labs(title = "Projected Neuse Outflow Volume", x = "Year", y = "Volume (cf)") +
   theme(legend.position = "none") +
