@@ -130,12 +130,8 @@ ggplot(data = eno_average_median, aes(x = year, y = avg_median_flow)) +
 ggplot(data = eno_average_mean, aes(x = year, y = avg_mean_flow)) +
   geom_line() +
   geom_smooth(method = "lm") +
-  stat_poly_eq(aes(label = after_stat(eq.label)), 
-               formula = y ~ x, 
-               parse = TRUE,
-               size = 2.5,
-               hjust = -1.3, vjust = 4,
-               family = "Times New Roman") +
+  annotate("text", x = 1973, y = 9000000, label = "-9.25 * 10^3 * x cfs/year", size = 2.5,
+           family = "Times New Roman") +
   labs(title = "Mean Eno Inflow", x = "Year", y = "Mean Inflow (cfs)") +
   theme_minimal() +
   theme(text = element_text(family = "Times New Roman"))
@@ -159,12 +155,8 @@ ggplot(data = eno_average_mean, aes(x = year, y = avg_mean_flow)) +
 ggplot(data = eno_volume_mean, aes(x = year, y = avg_vol)) +
   geom_line() +
   geom_smooth(method = "lm") +
-  stat_poly_eq(aes(label = after_stat(eq.label)), 
-               formula = y ~ x, 
-               parse = TRUE,
-               size = 2.5,
-               hjust = -1.3, vjust = 4,
-               family = "Times New Roman") +
+    annotate("text", x = 1973, y = 270000000, label = "-2.87 * 10^5 * x cfs/year", size = 2.5,
+           family = "Times New Roman") +
   labs(title = "Average Eno Volume", x = "Year", y = "Mean Volume (cf)") +
   theme_minimal() +
   theme(text = element_text(family = "Times New Roman"))
@@ -229,12 +221,8 @@ ggplot(data = eno_avemedian_filtered, aes(x = year, y = avg_median_flow)) +
 ggplot(data = eno_avemean_filtered, aes(x = year, y = avg_mean_flow)) +
   geom_line() +
   geom_smooth(method = "lm") +
-  stat_poly_eq(aes(label = after_stat(eq.label)), 
-               formula = y ~ x, 
-               parse = TRUE,
-               size = 2.5,
-               hjust = -0.6, vjust = 4,
-               family = "Times New Roman") +
+    annotate("text", x = 2010, y = 9000000, label = "4.16 * 10^6 * x cfs/year", size = 2.5,
+           family = "Times New Roman") +
   labs(title = "Mean Eno Inflow Since 1981", x = "Year", y = "Mean Inflow (cfs)") +
   theme_minimal() +
   theme(text = element_text(family = "Times New Roman"))
@@ -258,15 +246,11 @@ ggplot(data = eno_avemean_filtered, aes(x = year, y = avg_mean_flow)) +
 ggplot(data = eno_vol_filtered, aes(x = year, y = avg_vol)) +
   geom_line() +
   geom_smooth(method = "lm") +
-  stat_poly_eq(aes(label = after_stat(eq.label)), 
-               formula = y ~ x, 
-               parse = TRUE, 
-               size = 2.5,
-               hjust = -1.6, vjust = 6,
-               family = "Times New Roman") +
+      annotate("text", x = 2010, y = 270000000, label = "-1.88 * 10^3 * x cfs/year", size = 2.5,
+           family = "Times New Roman") +
   labs(title = "Average Eno Volume Since 1981", x = "Year", y = "Mean Volume (cf)") +
   theme_minimal() +
-  theme(text = element_text(family = "Times New Roman"))
+  theme(text = element_text(family = "Times New Roman")) 
 
 #Mean Eno volume scatter plot
 eno_vol_model_1981 <- lm(year ~ avg_vol, data = eno_vol_filtered)
@@ -314,11 +298,8 @@ ggplot(data = flat_average_median, aes(x = year, y = avg_median_flow)) +
 ggplot(data = flat_average_mean, aes(x = year, y = avg_mean_flow)) +
   geom_line() +
   geom_smooth(method = "lm") +
-  stat_poly_eq(aes(label = after_stat(eq.label)), 
-               formula = y ~ x, 
-               parse = TRUE, size = 2.5,
-               hjust = -0.4, vjust = 6,
-               family = "Times New Roman") +
+      annotate("text", x = 1950, y = 21000000, label = "-1.85 * 10^3 * x cfs/year", size = 2.5,
+           family = "Times New Roman") +
   labs(title = "Mean Flat Inflow", x = "Year", y = "Mean Inflow (cfs)") +
   theme_minimal() +
   theme(text = element_text(family = "Times New Roman"))
@@ -342,11 +323,8 @@ ggplot(data = flat_average_mean, aes(x = year, y = avg_mean_flow)) +
 ggplot(data = flat_volume_mean, aes(x = year, y = avg_vol)) +
   geom_line() +
   geom_smooth(method = "lm") +
-  stat_poly_eq(aes(label = after_stat(eq.label)), 
-               formula = y ~ x, 
-               parse = TRUE, size = 2.5,
-               hjust = -0.4, vjust = 6,
-               family = "Times New Roman") +
+  annotate("text", x = 1950, y = 630000000, label = "-6.07 * 10^4 * x cfs/year", size = 2.5,
+           family = "Times New Roman") +
   labs(title = "Average Flat Volume", x = "Year", y = "Mean Volume (cf)") +
     theme_minimal() +
   theme(text = element_text(family = "Times New Roman"))
@@ -410,11 +388,8 @@ ggplot(data = flat_1981_median, aes(x = year, y = avg_median_flow)) +
 ggplot(data = flat_1981_mean, aes(x = year, y = avg_mean_flow)) +
   geom_line() +
   geom_smooth(method = "lm") +
-  stat_poly_eq(aes(label = after_stat(eq.label)), 
-               formula = y ~ x, 
-               parse = TRUE, size = 2.5,
-               hjust = -0.4, vjust = 5,
-               family = "Times New Roman") +
+    annotate("text", x = 1990, y = 22000000, label = "4.09 * 10^3 * x cfs/year", size = 2.5,
+           family = "Times New Roman") +
   labs(title = "Mean Flat Inflow Since 1981", x = "Year", y = "Mean Inflow (cfs)") +
       theme_minimal() +
   theme(text = element_text(family = "Times New Roman"))
@@ -438,11 +413,8 @@ ggplot(data = flat_1981_mean, aes(x = year, y = avg_mean_flow)) +
 ggplot(data = flat_1981_volume, aes(x = year, y = avg_vol)) +
   geom_line() +
   geom_smooth(method = "lm") +
-  stat_poly_eq(aes(label = after_stat(eq.label)), 
-               formula = y ~ x, 
-               parse = TRUE, size = 2.5,
-               hjust = -0.4, vjust = 5,
-               family = "Times New Roman") +
+      annotate("text", x = 1990, y = 630000000, label = "1.06 * 10^5 * x cfs/year", size = 2.5,
+           family = "Times New Roman") +
   labs(title = "Average Flat Volume Since 1981", x = "Year", y = "Mean Volume (cf") +
         theme_minimal() +
   theme(text = element_text(family = "Times New Roman"))
@@ -493,11 +465,8 @@ ggplot(data = neuse_average_median, aes(x = year, y = avg_median_flow)) +
 ggplot(data = neuse_average_mean, aes(x = year, y = avg_mean_flow)) +
   geom_line() +
   geom_smooth(method = "lm") +
-  stat_poly_eq(aes(label = after_stat(eq.label)), 
-               formula = y ~ x, 
-               parse = TRUE, size = 2.5,
-               hjust = -1.6, vjust = 2,
-               family = "Times New Roman") +
+        annotate("text", x = 2010, y = 93000000, label = "-3.6 * 10^5 * x cfs/year", size = 2.5,
+           family = "Times New Roman") +
   labs(title = "Mean Neuse outflow", x = "Year", y = "Mean Outflow (cfs)") +
       theme_minimal() +
   theme(text = element_text(family = "Times New Roman"))
@@ -521,11 +490,8 @@ ggplot(data = neuse_average_mean, aes(x = year, y = avg_mean_flow)) +
 ggplot(data = neuse_volume_mean, aes(x = year, y = avg_vol)) +
   geom_line() +
   geom_smooth(method = "lm") +
-  stat_poly_eq(aes(label = after_stat(eq.label)), 
-               formula = y ~ x, 
-               parse = TRUE, size = 2.5,
-               hjust = -1.6, vjust = 2,
-               family = "Times New Roman") +
+ annotate("text", x = 2012, y = 2900000000, label = "-1.09 * 10^7 * x cfs/year", size = 2.5,
+           family = "Times New Roman") +
   labs(title = "Average Neuse Volume", x = "Year", y = "Mean Volume (cf)") +
   theme_minimal() +
   theme(text = element_text(family = "Times New Roman"))
@@ -590,11 +556,8 @@ ggplot(data = neuse_1981_median, aes(x = year, y = avg_median_flow)) +
 ggplot(data = neuse_1981_mean, aes(x = year, y = avg_mean_flow)) +
   geom_line() +
   geom_smooth(method = "lm") +
-  stat_poly_eq(aes(label = after_stat(eq.label)), 
-               formula = y ~ x, 
-               parse = TRUE, size = 2.5,
-               hjust = -1.8, vjust = 2,
-               family = "Times New Roman") +
+   annotate("text", x = 2012, y = 81000000, label = "-1.79 * 10^5 * x cfs/year", size = 2.5,
+           family = "Times New Roman") +
   labs(title = "Mean Neuse Outflow Since 1981", x = "Year", y = "Mean Outflow (cfs)") +
     theme_minimal() +
   theme(text = element_text(family = "Times New Roman"))
@@ -618,11 +581,8 @@ ggplot(data = neuse_1981_mean, aes(x = year, y = avg_mean_flow)) +
 ggplot(data = neuse_1981_volume, aes(x = year, y = avg_vol)) +
   geom_line() +
   geom_smooth(method = "lm") +
-  stat_poly_eq(aes(label = after_stat(eq.label)), 
-               formula = y ~ x, 
-               parse = TRUE, size = 2.5,
-               hjust = -1.8, vjust = 2,
-               family = "Times New Roman") +
+  annotate("text", x = 2012, y = 2800000000, label = "-5.36 * 10^6 * x cfs/year", size = 2.5,
+           family = "Times New Roman") +
   labs(title = "Average Neuse Volume since 1981", x = "Year", y = "Mean Volume (cf)") +
     theme_minimal() +
   theme(text = element_text(family = "Times New Roman"))
@@ -661,12 +621,8 @@ ggplot(data = combined, aes(x = year, y = combined_mean)) +
   scale_size_manual(values = c("FALSE" = 2, "TRUE" = 5)) +
   geom_vline(xintercept = 2023, linetype = "dashed", color = "red") + 
   theme_minimal() +
-  stat_poly_eq(aes(label = after_stat(eq.label)), 
-               formula = y ~ x, 
-               size = 2.5,
-               parse = TRUE,
-               hjust = -0.1, vjust = 5,
-               family = "Times New Roman") +
+  annotate("text", x = 1960, y = 30000000, label = "-1.11 * 10^4 * x cfs/year", size = 2.5,
+           family = "Times New Roman") +
   labs(title = "Combined Average Inflows and Projected", x = "Year", y = "Average Inflow (cfs)") +
   theme(legend.position = "none") +
   theme(text = element_text(family = "Times New Roman"))
@@ -700,12 +656,8 @@ ggplot(data = combined, aes(x = year, y = combined_volume)) +
   scale_size_manual(values = c("FALSE" = 2, "TRUE" = 5)) +
   geom_vline(xintercept = 2023, linetype = "dashed", color = "red") + 
   theme_minimal() +
-  stat_poly_eq(aes(label = after_stat(eq.label)), 
-               formula = y ~ x, 
-               size = 2.5,
-               parse = TRUE,
-               hjust = -0.1, vjust = 5,
-               family = "Times New Roman") +
+    annotate("text", x = 1975, y = 900000000, label = "-3.46 * 10^5 * x cfs/year", size = 2.5,
+           family = "Times New Roman") +
   labs(title = "Combined Inflow Volumes and Projected", x = "Year", y = "Volume (cf)") +
   theme(legend.position = "none") +
   theme(text = element_text(family = "Times New Roman"))
@@ -747,12 +699,8 @@ ggplot(data = neuse, aes(x = year, y = mean_flow)) +
   scale_size_manual(values = c("FALSE" = 2, "TRUE" = 5)) +
   geom_vline(xintercept = 2023, linetype = "dashed", color = "red") + 
   theme_minimal() +
-  stat_poly_eq(aes(label = after_stat(eq.label)), 
-               formula = y ~ x, 
-               size = 2.5,
-               parse = TRUE,
-               hjust = -1.7, vjust = 4,
-               family = "Times New Roman") +
+  annotate("text", x = 2034, y = 66000000, label = "-3.46 * 10^5 * x cfs/year", size = 2.5,
+           family = "Times New Roman") +
   labs(title = "Neuse Mean and Projected Outflows", x = "Year", y = "Mean Outflow (cfs)") +
   theme(legend.position = "none") +
   theme(text = element_text(family = "Times New Roman"))
@@ -767,12 +715,8 @@ ggplot(data = neuse, aes(x = year, y = volume)) +
   scale_size_manual(values = c("FALSE" = 2, "TRUE" = 5)) +
   geom_vline(xintercept = 2023, linetype = "dashed", color = "red") + 
   theme_minimal() +
-  stat_poly_eq(aes(label = after_stat(eq.label)), 
-               formula = y ~ x, 
-               size = 2.5,
-               parse = TRUE,
-               hjust = -1.7, vjust = 4,
-               family = "Times New Roman") +
+  annotate("text", x = 2034, y = 2000000000, label = "-1.09 * 10^7 * x cfs/year", size = 2.5,
+           family = "Times New Roman") +
   labs(title = "Projected Neuse Outflow Volume", x = "Year", y = "Volume (cf)") +
   theme(legend.position = "none") +
   theme(text = element_text(family = "Times New Roman"))
