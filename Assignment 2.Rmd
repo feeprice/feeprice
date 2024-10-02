@@ -2,24 +2,149 @@
 title: "Assignment 2"
 output: html_document
 date: "2024-10-02"
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(ggplot2)
+library(here)
+library(dplyr)
+
+
+boone <- read.csv(file = 
+    here("./Data Raw/Boone_daily_precip_1980-present_HUC_050500010201_dayMet_split-dates-columns.csv"),
+    stringsAsFactors = TRUE)
+boone_clean <- boone[!is.nan(boone$Area.Weighted.Mean.Precipitation..mm.per.day.), ]
+
+greensboro <- read.csv(file = 
+    here("./Data Raw/Greensboro_daily_precip_1980-present_HUC_030300020105_dayMet_split-dates-columns.csv"),
+    stringsAsFactors = TRUE)
+
+greenville <- read.csv(file = 
+    here("./Data Raw/Greenville_daily_precip_1980-present_HUC_030201030403_dayMet_split-dates-columns.csv"),
+    stringsAsFactors = TRUE)
+
+```
+
+```{r, boone subset}
+#Boone annual daily max
+early_boone <- boone_clean %>% 
+  filter(year < 2000)
+
+early_boone_annual <- boone_clean %>% 
+  filter(year < 2000) %>% 
+  group_by(year) %>% 
+  summarise(daily_max_annual = max(Area.Weighted.Mean.Precipitation..mm.per.day.))
+
+late_boone <- boone_clean %>% 
+  filter(year >= 2000)
+
+late_boone_annual <- boone_clean %>% 
+  filter(year >= 2000) %>% 
+  group_by(year) %>% 
+  summarise(daily_max_annual = max(Area.Weighted.Mean.Precipitation..mm.per.day.))
+
+
+#Boone annual sum
+
+early_boone_annualsum <- boone_clean %>% 
+  filter(year < 2000) %>% 
+  group_by(year) %>% 
+  summarise(annual_sum = sum(Area.Weighted.Mean.Precipitation..mm.per.day.))
+
+late_boone_annualsum <- boone_clean %>% 
+  filter(year >= 2000) %>% 
+  group_by(year) %>% 
+  summarise(annual_sum = sum(Area.Weighted.Mean.Precipitation..mm.per.day.))
+
+#Boone monthly sum
+early_boone_monthsum <- boone_clean %>% 
+  filter(year < 2000) %>% 
+  group_by(month, year) %>% 
+  summarise(monthly_sum_by_year = sum(Area.Weighted.Mean.Precipitation..mm.per.day.))
+
+#Boone monthly sum
+late_boone_monthsum <- boone_clean %>% 
+  filter(year >= 2000) %>% 
+  group_by(month, year) %>% 
+  summarise(monthly_sum_by_year = sum(Area.Weighted.Mean.Precipitation..mm.per.day.))
+```
+
+```{r}
+early_boone <- early_boone %>% 
+  filter(Area.Weighted.Mean.Precipitation..mm.per.day. > 0) %>% 
+  mutate(rank = rank(-Area.Weighted.Mean.Precipitation..mm.per.day.,
+                        ties.method = "average")) %>% 
+  mutate(number_events = 2768) %>% 
+  mutate(plotting_position = ((100*((2*rank) - 1))/(2*number_events))) %>% 
+  mutate(weibull = ((number_events + 1)/rank)) %>% 
+  mutate(return_period = 100/plotting_position)
+
+#rp using daily max for early period
+rp_early_boone <- early_boone_annual %>% 
+  mutate(rank = rank(-daily_max_annual,
+                        ties.method = "max")) %>% 
+  mutate(number_events = 20) %>% 
+  mutate(plotting_position = ((100*((2*rank) - 1))/(2*number_events))) %>% 
+  mutate(weibull = ((number_events + 1)/rank)) %>% 
+  mutate(return_period = 100/plotting_position)
+
+#rp using annual sum for early period
+rp_early_boone_annual <- early_boone_annualsum %>% 
+  mutate(rank = rank(-annual_sum,
+                        ties.method = "max")) %>% 
+  mutate(number_events = 20) %>% 
+  mutate(plotting_position = ((100*((2*rank) - 1))/(2*number_events))) %>% 
+  mutate(weibull = ((number_events + 1)/rank)) %>% 
+  mutate(return_period = 100/plotting_position)
+
+
+#rp using daily max for late period
+rp_late_boone <- late_boone_annual %>% 
+  mutate(rank = rank(-daily_max_annual,
+                        ties.method = "max")) %>% 
+  mutate(number_events = 16) %>% 
+  mutate(plotting_position = ((100*((2*rank) - 1))/(2*number_events))) %>% 
+  mutate(weibull = ((number_events + 1)/rank)) %>% 
+  mutate(return_period = 100/plotting_position)
+
+#rp using annual sum for late period
+rp_late_boone_annual <- late_boone_annualsum %>% 
+  mutate(rank = rank(-annual_sum,
+                        ties.method = "max")) %>% 
+  mutate(number_events = 16) %>% 
+  mutate(plotting_position = ((100*((2*rank) - 1))/(2*number_events))) %>% 
+  mutate(weibull = ((number_events + 1)/rank)) %>% 
+  mutate(return_period = 100/plotting_position)
 
 
 ```
 
-## R Markdown
+```{r}
+#Maximum daily values
+#early
+ggplot(early_boone_annual, aes(x = year, y = daily_max_annual)) +
+  geom_line() +
+  geom_smooth(method = "lm") 
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+#late
+ggplot(late_boone_annual, aes(x = year, y = daily_max_annual)) +
+  geom_line() +
+  geom_smooth(method = "lm") 
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+#Annual sums
+#early
+ggplot(early_boone_annualsum, aes(x = year, y = annual_sum)) +
+  geom_line() +
+  geom_smooth(method = "lm") 
 
-```{r cars}
-summary(cars)
+#late
+ggplot(late_boone_annualsum, aes(x = year, y = annual_sum)) +
+  geom_line() +
+  geom_smooth(method = "lm") 
 ```
 
 ## Including Plots
