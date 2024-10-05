@@ -163,7 +163,15 @@ moving_sum_early_boone <- rollapply(early_boone$Area.Weighted.Mean.Precipitation
 moving_early_boone <- data.frame(
   Original_Data = early_boone,
   Moving_Sum = moving_sum_early_boone
-)
+) %>% 
+  filter(Moving_Sum > 0)
+
+#didn't use this
+movingearly_boone_annual <- moving_early_boone %>% 
+  filter(Original_Data.year < 2000) %>% 
+  group_by(Original_Data.year) %>% 
+  summarise(twoday_max_annual = max(Moving_Sum))
+
 
 rp_early_boone_moving <- moving_early_boone %>% 
   mutate(rank = rank(-Moving_Sum,
@@ -174,12 +182,16 @@ rp_early_boone_moving <- moving_early_boone %>%
   mutate(return_period = 1/weibull)
 #moving sum for 50-year 48-hour storm event = 66 mm
 
-ggplot(early_boone_annual, aes(x = year, y = daily_max_annual)) +
+ggplot(movingearly_boone_annual, aes(x = Original_Data.year, y = twoday_max_annual)) +
   geom_line() +
   geom_smooth(method = "lm") +
   geom_hline(yintercept = 66, color = "red", linetype = "dashed", size = 1) +
     scale_x_continuous(breaks = seq(1980, 1999, 1)) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+  labs(title = "Annual Maximum Two-Day Precipitation Events for Boone\nfrom 1980-1999",
+       x = "Year",
+       y = "Depth of precipitation (mm)") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 
 moving_sum_late_boone <- rollapply(late_boone$Area.Weighted.Mean.Precipitation..mm.per.day., width = 2, FUN = sum, fill = NA, align = "right")
@@ -187,7 +199,13 @@ moving_sum_late_boone <- rollapply(late_boone$Area.Weighted.Mean.Precipitation..
 moving_late_boone <- data.frame(
   Original_Data = late_boone,
   Moving_Sum = moving_sum_late_boone
-)
+) %>% 
+  filter(Moving_Sum > 0)
+
+movinglate_boone_annual <- moving_late_boone %>% 
+  filter(Original_Data.year >= 2000) %>% 
+  group_by(Original_Data.year) %>% 
+  summarise(twoday_max_annual = max(Moving_Sum))
 
 rp_late_boone_moving <- moving_late_boone %>% 
   mutate(rank = rank(-Moving_Sum,
@@ -198,12 +216,16 @@ rp_late_boone_moving <- moving_late_boone %>%
   mutate(return_period = 1/weibull)
 #moving sum for 50-year 48-hour storm event = 80 mm
 
-ggplot(late_boone_annual, aes(x = year, y = daily_max_annual)) +
+ggplot(movinglate_boone_annual, aes(x = Original_Data.year, y = twoday_max_annual)) +
   geom_line() +
   geom_smooth(method = "lm") +
   geom_hline(yintercept = 68, color = "red", linetype = "dashed", size = 1) +
   scale_x_continuous(breaks = seq(2000, 2016, 1)) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+    labs(title = "Annual Maximum Two-Day Precipitation Events for Boone\nfrom 2000-2016",
+       x = "Year",
+       y = "Depth of precipitation (mm)") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
 
@@ -218,7 +240,14 @@ moving_sum_early_greensboro <- rollapply(early_greensboro$Area.Weighted.Mean.Pre
 moving_early_greensboro <- data.frame(
   Original_Data = early_greensboro,
   Moving_Sum = moving_sum_early_greensboro
-)
+) %>% 
+  filter(Moving_Sum > 0)
+
+movingearly_greensboro_annual <- moving_early_greensboro  %>% 
+  filter(Original_Data.year < 2000) %>% 
+  group_by(Original_Data.year) %>% 
+  summarise(twoday_max_annual = max(Moving_Sum))
+
 
 rp_early_greensboro_moving <- moving_early_greensboro %>% 
   mutate(rank = rank(-Moving_Sum,
@@ -229,23 +258,24 @@ rp_early_greensboro_moving <- moving_early_greensboro %>%
   mutate(return_period = 1/weibull)
 #moving sum for 50-year 48-hour storm event = 55 mm
 
-early_greensboro_annual <- greensboro_clean %>% 
-  filter(year < 2000) %>% 
-  group_by(year) %>% 
-  summarise(daily_max_annual = max(Area.Weighted.Mean.Precipitation..mm.per.day.))
 
-ggplot(early_greensboro_annual, aes(x = year, y = daily_max_annual)) +
+
+ggplot(movingearly_greensboro_annual, aes(x = Original_Data.year, y = twoday_max_annual)) +
   geom_line() +
   geom_smooth(method = "lm") +
   geom_hline(yintercept = 55, color = "red", linetype = "dashed", size = 1) +
     scale_x_continuous(breaks = seq(1980, 1999, 1)) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+  labs(title = "Annual Maximum Two-Day Precipitation Events for Greensboro\nfrom   1980-1999",
+       x = "Year",
+       y = "Depth of precipitation (mm)") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  
 
 
 late_greensboro <- greensboro %>% 
   filter(year >= 2000)
 
-late_greensboro_annual <- greensboro_clean %>% 
+late_greensboro_annual <- greensboro %>% 
   filter(year >= 2000) %>% 
   group_by(year) %>% 
   summarise(daily_max_annual = max(Area.Weighted.Mean.Precipitation..mm.per.day.))
@@ -255,7 +285,13 @@ moving_sum_late_greensboro <- rollapply(late_greensboro$Area.Weighted.Mean.Preci
 moving_late_greensboro <- data.frame(
   Original_Data = late_greensboro,
   Moving_Sum = moving_sum_late_greensboro
-)
+) %>% 
+  filter(Moving_Sum > 0)
+
+movinglate_greensboro_annual <- moving_late_greensboro  %>% 
+  filter(Original_Data.year >= 2000) %>% 
+  group_by(Original_Data.year) %>% 
+  summarise(twoday_max_annual = max(Moving_Sum))
 
 rp_late_greensboro_moving <- moving_late_greensboro %>% 
   mutate(rank = rank(-Moving_Sum,
@@ -266,11 +302,15 @@ rp_late_greensboro_moving <- moving_late_greensboro %>%
   mutate(return_period = 1/weibull)
 #moving sum for 50-year 48-hour storm event = 55 mm
 
-ggplot(late_greensboro_annual, aes(x = year, y = daily_max_annual)) +
+ggplot(movinglate_greensboro_annual, aes(x = Original_Data.year, y = twoday_max_annual)) +
   geom_line() +
   geom_smooth(method = "lm") +
   geom_hline(yintercept = 55, color = "red", linetype = "dashed", size = 1) +
   scale_x_continuous(breaks = seq(2000, 2016, 1)) +
+  labs(title = "Annual Maximum Two-Day Precipitation Events for Greensboro\nfrom   2000-2016",
+       x = "Year",
+       y = "Depth of precipitation (mm)") +
+  theme_bw() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
 
 ```
@@ -287,7 +327,13 @@ moving_sum_early_greenville <- rollapply(early_greenville$Area.Weighted.Mean.Pre
 moving_early_greenville <- data.frame(
   Original_Data = early_greenville,
   Moving_Sum = moving_sum_early_greenville
-)
+) %>% 
+  filter(Moving_Sum > 0)
+
+movingearly_greenville_annual <- moving_early_greenville  %>% 
+  filter(Original_Data.year < 2000) %>% 
+  group_by(Original_Data.year) %>% 
+  summarise(twoday_max_annual = max(Moving_Sum))
 
 rp_early_greenville_moving <- moving_early_greenville %>% 
   mutate(rank = rank(-Moving_Sum,
@@ -303,11 +349,15 @@ early_greenville_annual <- greenville_clean %>%
   group_by(year) %>% 
   summarise(daily_max_annual = max(Area.Weighted.Mean.Precipitation..mm.per.day.))
 
-ggplot(early_greenville_annual, aes(x = year, y = daily_max_annual)) +
+ggplot(movingearly_greenville_annual, aes(x = Original_Data.year, y = twoday_max_annual)) +
   geom_line() +
   geom_smooth(method = "lm") +
   geom_hline(yintercept = 59, color = "red", linetype = "dashed", size = 1) +
     scale_x_continuous(breaks = seq(1980, 1999, 1)) +
+  labs(title = "Annual Maximum Two-Day Precipitation Events for Greenville\nfrom   1980-1999",
+       x = "Year",
+       y = "Depth of precipitation (mm)") +
+  theme_bw() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
 
 
@@ -324,7 +374,13 @@ moving_sum_late_greenville <- rollapply(late_greenville$Area.Weighted.Mean.Preci
 moving_late_greenville <- data.frame(
   Original_Data = late_greensboro,
   Moving_Sum = moving_sum_late_greenville
-)
+) %>% 
+  filter(Moving_Sum > 0)
+
+movinglate_greenville_annual <- moving_late_greenville  %>% 
+  filter(Original_Data.year >= 2000) %>% 
+  group_by(Original_Data.year) %>% 
+  summarise(twoday_max_annual = max(Moving_Sum))
 
 rp_late_greenville_moving <- moving_late_greenville %>% 
   filter(Moving_Sum > 0) %>% 
@@ -335,11 +391,15 @@ rp_late_greenville_moving <- moving_late_greenville %>%
   mutate(return_period = 1/weibull)
 #moving sum for 50-year 48-hour storm event = 67 mm
 
-ggplot(late_greenville_annual, aes(x = year, y = daily_max_annual)) +
+ggplot(movinglate_greenville_annual, aes(x = Original_Data.year, y = twoday_max_annual)) +
   geom_line() +
   geom_smooth(method = "lm") +
   geom_hline(yintercept = 67, color = "red", linetype = "dashed", size = 1) +
   scale_x_continuous(breaks = seq(2000, 2016, 1)) +
+  labs(title = "Annual Maximum Two-Day Precipitation Events for Greenville\nfrom   2000-2016",
+       x = "Year",
+       y = "Depth of precipitation (mm)") +
+  theme_bw() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
 
 
