@@ -455,8 +455,8 @@ rp_boone_frontal <- movingsum_boone_frontal %>%
   mutate(return_period = 1/weibull)
 #moving sum for 50-year 48-hour storm event = 68 mm
 
-rp_boone_frontal$StormType = "frontal"
-rp_boone_hurricane$StormType = "hurricane"
+rp_boone_frontal$StormType = "Frontal (1980-1999)"
+rp_boone_hurricane$StormType = "Hurricane (1980-1999)"
 
 boone_combined <- bind_rows(rp_boone_frontal, rp_boone_hurricane)
 
@@ -515,16 +515,22 @@ rp_boone_frontal_2016 <- movingsum_boone_frontal_2016 %>%
   mutate(return_period = 1/weibull)
 #moving sum for 50-year 48-hour storm event = 55 mm
 
-rp_boone_frontal_2016$StormType = "frontal new"
-rp_boone_hurricane_2016$StormType = "hurricane new"
+rp_boone_frontal_2016$StormType = "Frontal (2000-2016)"
+rp_boone_hurricane_2016$StormType = "Hurricane (2000-2016)"
 
 boone_combined_all <- bind_rows(rp_boone_frontal, rp_boone_hurricane, rp_boone_frontal_2016, rp_boone_hurricane_2016)
 
 ggplot(boone_combined_all, aes(x = return_period, y = Moving_Sum, color = StormType)) +
-  geom_line() +
+  geom_line(size = 1) +
   labs(title = "Return Period Storms in Boone for Frontal Season and\nHurricane Season",
-       x = "Return Period",
-       y = "Depth of precipitation (mm)") +
+       x = "Return Period (Years)",
+       y = "Depth of precipitation (mm)",
+       color = "Storm Type") +
+    scale_color_manual(
+    values = c("Frontal (1980-1999)" = "#FFCCCC",
+               "Frontal (2000-2016)" = "red",
+               "Hurricane (1980-1999)" = "#ADD8E6",
+               "Hurricane (2000-2016)" = "blue")) +
   theme_bw() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
 
@@ -580,8 +586,8 @@ rp_greensboro_frontal <- movingsum_greensboro_frontal %>%
   mutate(return_period = 1/weibull)
 #moving sum for 50-year 48-hour storm event = 42 mm
 
-rp_greensboro_frontal$StormType = "frontal"
-rp_greensboro_hurricane$StormType = "hurricane"
+rp_greensboro_frontal$StormType = "Frontal (1980-1999)"
+rp_greensboro_hurricane$StormType = "Hurricane (1980-1999)"
 
 greensboro_combined <- bind_rows(rp_greensboro_frontal, rp_greensboro_hurricane)
 
@@ -640,16 +646,22 @@ rp_greensboro_frontal_2016 <- movingsum_greensboro_frontal_2016 %>%
   mutate(return_period = 1/weibull)
 #moving sum for 50-year 48-hour storm event = 42 mm
 
-rp_greensboro_frontal_2016$StormType = "frontal new"
-rp_greensboro_hurricane_2016$StormType = "hurricane new"
+rp_greensboro_frontal_2016$StormType = "Frontal (2000-2016)"
+rp_greensboro_hurricane_2016$StormType = "Hurricane (2000-2016)"
 
 greensboro_combined_all <- bind_rows(rp_greensboro_frontal, rp_greensboro_hurricane, rp_greensboro_frontal_2016, rp_greensboro_hurricane_2016)
 
 ggplot(greensboro_combined_all, aes(x = return_period, y = Moving_Sum, color = StormType)) +
-  geom_line() +
+  geom_line(size = 1) +
   labs(title = "Return Period Storms in Greensboro for Frontal Season and\nHurricane Season",
-       x = "Return Period",
-       y = "Depth of precipitation (mm)") +
+       x = "Return Period (Years)",
+       y = "Depth of precipitation (mm)",
+       color = "Storm Type") +
+  scale_color_manual(
+    values = c("Frontal (1980-1999)" = "#FFCCCC",
+               "Frontal (2000-2016)" = "red",
+               "Hurricane (1980-1999)" = "#ADD8E6",
+               "Hurricane (2000-2016)" = "blue")) +
   theme_bw() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
 
@@ -705,8 +717,8 @@ rp_greenville_frontal <- movingsum_greenville_frontal %>%
   mutate(return_period = 1/weibull)
 #moving sum for 50-year 48-hour storm event = 44 mm
 
-rp_greenville_frontal$StormType = "frontal"
-rp_greenville_hurricane$StormType = "hurricane"
+rp_greenville_frontal$StormType = "Frontal (1980-1999)"
+rp_greenville_hurricane$StormType = "Hurricane (1980-1999)"
 
 greenville_combined <- bind_rows(rp_greenville_frontal, rp_greenville_hurricane)
 
@@ -765,18 +777,24 @@ rp_greenville_frontal_2016 <- movingsum_greenville_frontal_2016 %>%
   mutate(return_period = 1/weibull)
 #moving sum for 50-year 48-hour storm event = 54 mm
 
-rp_greenville_frontal_2016$StormType = "frontal new"
-rp_greenville_hurricane_2016$StormType = "hurricane new"
+rp_greenville_frontal_2016$StormType = "Frontal (2000-2016)"
+rp_greenville_hurricane_2016$StormType = "Hurricane (2000-2016)"
 
 greenville_combined_all <- bind_rows(rp_greenville_frontal, rp_greenville_hurricane, rp_greenville_frontal_2016, rp_greenville_hurricane_2016)
 
 ggplot(greenville_combined_all, aes(x = return_period, y = Moving_Sum, color = StormType)) +
-  geom_line() +
+  geom_line(size = 1) +
   labs(title = "Return Period Storms in Greenville for Frontal Season and\nHurricane Season",
-       x = "Return Period",
-       y = "Depth of precipitation (mm)") +
-  theme_bw() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+       x = "Return Period (Years)",
+       y = "Depth of precipitation (mm)",
+       color = "Storm Type") +
+  scale_color_manual(
+    values = c("Frontal (1980-1999)" = "#FFCCCC",
+               "Frontal (2000-2016)" = "red",
+               "Hurricane (1980-1999)" = "#ADD8E6",
+               "Hurricane (2000-2016)" = "blue")) +
+    theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
 
