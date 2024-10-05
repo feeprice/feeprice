@@ -524,7 +524,7 @@ ggplot(boone_combined_all, aes(x = return_period, y = Moving_Sum, color = StormT
   geom_line(size = 1) +
   labs(title = "Return Period Storms in Boone for Frontal Season and\nHurricane Season",
        x = "Return Period (Years)",
-       y = "Depth of precipitation (mm)",
+       y = "Depth of Precipitation (mm)",
        color = "Storm Type") +
     scale_color_manual(
     values = c("Frontal (1980-1999)" = "#FFCCCC",
@@ -655,7 +655,7 @@ ggplot(greensboro_combined_all, aes(x = return_period, y = Moving_Sum, color = S
   geom_line(size = 1) +
   labs(title = "Return Period Storms in Greensboro for Frontal Season and\nHurricane Season",
        x = "Return Period (Years)",
-       y = "Depth of precipitation (mm)",
+       y = "Depth of Precipitation (mm)",
        color = "Storm Type") +
   scale_color_manual(
     values = c("Frontal (1980-1999)" = "#FFCCCC",
@@ -786,7 +786,7 @@ ggplot(greenville_combined_all, aes(x = return_period, y = Moving_Sum, color = S
   geom_line(size = 1) +
   labs(title = "Return Period Storms in Greenville for Frontal Season and\nHurricane Season",
        x = "Return Period (Years)",
-       y = "Depth of precipitation (mm)",
+       y = "Depth of Precipitation (mm)",
        color = "Storm Type") +
   scale_color_manual(
     values = c("Frontal (1980-1999)" = "#FFCCCC",
