@@ -1,8 +1,10 @@
 ---
 title: "Assignment 2"
-output: html_document
+output:
+  word_document: default
+  html_document: default
 date: "2024-10-02"
-editor_options: 
+editor_options:
   chunk_output_type: console
 ---
 
@@ -30,7 +32,7 @@ greenville <- read.csv(file =
     stringsAsFactors = TRUE)
 ```
 
-```{r moving sum, echo=FALSE}
+```{r Block 1: Boone 1980-1999 vs 2000-2016}
 #Boone - 1980-1999
 early_boone <- boone %>% 
   filter(year < 2000)
@@ -120,7 +122,7 @@ ggplot(movinglate_boone_annual, aes(x = Original_Data.year, y = twoday_max_annua
 
 ```
 
-```{r}
+```{r Block 2: Greensboro 1980-1999 vs 2000-2016}
 #Greensboro, 1980-1999
 early_greensboro <- greensboro %>% 
   filter(year < 2000)
@@ -211,7 +213,7 @@ ggplot(movinglate_greensboro_annual, aes(x = Original_Data.year, y = twoday_max_
 ```
 
 
-```{r}
+```{r Block 3: Greenville 1980-1999 vs 2000-2016}
 #Greenville, 1980-1999
 early_greenville <- greenville %>% 
   filter(year < 2000)
@@ -304,7 +306,7 @@ ggplot(movinglate_greenville_annual, aes(x = Original_Data.year, y = twoday_max_
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
 ```
 
-```{r}
+```{r Block 4: Boone hurricanes vs frontal}
 #Seasonal, Boone 1980-1999
 #Hurricane season
 hurricane_boone <- boone %>% 
@@ -458,7 +460,7 @@ ggplot(boone_combined_all, aes(x = return_period, y = Moving_Sum, color = StormT
 ```
 
 
-```{r}
+```{r Block 5: Greensboro hurricanes vs frontal}
 #Seasonal, Greensboro 1980-1999
 #Hurricane season
 hurricane_greensboro <- greensboro %>% 
@@ -616,7 +618,7 @@ ggplot(greensboro_combined_all, aes(x = return_period, y = Moving_Sum,
 ```
 
 
-```{r}
+```{r Block 6: Greenville hurricanes vs frontal}
 #Seasonal, Greenville 1980-1999
 #Hurricane season
 hurricane_greenville <- greenville %>% 
@@ -773,4 +775,240 @@ ggplot(greenville_combined_all, aes(x = return_period, y = Moving_Sum,
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
+```{r Block 7: Boone 2016 and 1995 only}
+#Boone, 2016
+boone_2016 <- boone %>% 
+  filter(year == 2016)
 
+#Calculate the moving sum
+moving_boone_2016 <- rollapply(
+  boone_2016$Area.Weighted.Mean.Precipitation..mm.per.day., width = 2, 
+  FUN = sum, fill = NA, align = "right")
+
+#Turn into a data frame
+boone_2016_movingsum <- data.frame(
+  Original_Data = boone_2016,
+  Moving_Sum = moving_boone_2016
+) %>% 
+  filter(Moving_Sum > 0)
+
+#Calculate two-day monthly max
+boone_2016_monthly <- boone_2016_movingsum %>% 
+  group_by(Original_Data.month) %>% 
+  summarise(twoday_max_monthly = max(Moving_Sum))
+
+#Change month to a factor
+boone_2016_monthly$Original_Data.month <- factor(boone_2016_monthly$Original_Data.month, 
+       levels = 1:12,
+       labels = month.abb)
+
+#Plot the monthly two-day max precip
+ggplot(boone_2016_monthly, aes(x = Original_Data.month, y = twoday_max_monthly)) +
+  geom_bar(stat = "identity", fill = "skyblue") + 
+  labs(title = "Monthly Two-Day Maximum Precipitation, Boone 2016", 
+       x = "Month", 
+       y = "Depth of Precipitation (mm)") +
+  geom_vline(xintercept = 6.5, linetype = "dashed", color = "red", size = 1) +
+  geom_vline(xintercept = 10.5, linetype = "dashed", color = "red", size = 1) +
+  annotate("text", x = 4.5, y = 60, label = "Hurricane Season", size = 3) +
+  annotate("text", x = 8.5, y = 60, label = "Frontal Season", size = 3) +
+  theme_bw() 
+  
+#Boone, 1995
+boone_1995 <- boone %>% 
+  filter(year == 1995)
+
+#Calculate the moving sum
+moving_boone_1995 <- rollapply(
+  boone_1995$Area.Weighted.Mean.Precipitation..mm.per.day., width = 2, 
+  FUN = sum, fill = NA, align = "right")
+
+#Turn into a data frame
+boone_1995_movingsum <- data.frame(
+  Original_Data = boone_1995,
+  Moving_Sum = moving_boone_1995
+) %>% 
+  filter(Moving_Sum > 0)
+
+#Calculate two-day annual max
+boone_1995_monthly <- boone_1995_movingsum %>% 
+  group_by(Original_Data.month) %>% 
+  summarise(twoday_max_monthly = max(Moving_Sum))
+
+#Change month to factor
+boone_1995_monthly$Original_Data.month <- factor(boone_1995_monthly$Original_Data.month, 
+       levels = 1:12,
+       labels = month.abb)
+    
+#Plot the monthly two-day max precip   
+ggplot(boone_1995_monthly, aes(x = Original_Data.month, y = twoday_max_monthly)) +
+  geom_bar(stat = "identity", fill = "skyblue") + 
+  labs(title = "Monthly Two-Day Maximum Precipitation, Boone 1995", 
+       x = "Month", 
+       y = "Depth of Precipitation (mm)") +
+  geom_vline(xintercept = 6.5, linetype = "dashed", color = "red", size = 1) +
+  geom_vline(xintercept = 10.5, linetype = "dashed", color = "red", size = 1) +
+  annotate("text", x = 3.5, y = 110, label = "Hurricane Season", size = 3) +
+  annotate("text", x = 8.5, y = 110, label = "Frontal Season", size = 3) +
+  theme_bw()
+```
+
+```{r Block 8: Greensboro 2016 and 1995 only}
+#Greensboro, 2016
+greensboro_2016 <- greensboro %>% 
+  filter(year == 2016)
+
+#Calculate the moving sum
+moving_greensboro_2016 <- rollapply(
+  greensboro_2016$Area.Weighted.Mean.Precipitation..mm.per.day., width = 2, 
+  FUN = sum, fill = NA, align = "right")
+
+#Turn into a data frame
+greensboro_2016_movingsum <- data.frame(
+  Original_Data = greensboro_2016,
+  Moving_Sum = moving_greensboro_2016
+) %>% 
+  filter(Moving_Sum > 0)
+
+#Calculate two-day annual max
+greensboro_2016_monthly <- greensboro_2016_movingsum %>% 
+  group_by(Original_Data.month) %>% 
+  summarise(twoday_max_monthly = max(Moving_Sum))
+
+#Change month to a factor
+greensboro_2016_monthly$Original_Data.month <- factor(
+  greensboro_2016_monthly$Original_Data.month, 
+       levels = 1:12,
+       labels = month.abb)
+
+#Plot the monthly two-day max precip
+ggplot(greensboro_2016_monthly, aes(x = Original_Data.month, y = twoday_max_monthly)) +
+  geom_bar(stat = "identity", fill = "skyblue") + 
+  labs(title = "Monthly Two-Day Maximum Precipitation, Greensboro 2016", 
+       x = "Month", 
+       y = "Depth of Precipitation (mm)") +
+  geom_vline(xintercept = 6.5, linetype = "dashed", color = "red", size = 1) +
+  geom_vline(xintercept = 10.5, linetype = "dashed", color = "red", size = 1) +
+  annotate("text", x = 3, y = 80, label = "Hurricane Season", size = 3) +
+  annotate("text", x = 8.5, y = 80, label = "Frontal Season", size = 3) +
+  theme_bw() 
+  
+#Greensboro, 1995
+greensboro_1995 <- greensboro %>% 
+  filter(year == 1995)
+
+#Calculate the moving sum
+moving_greensboro_1995 <- rollapply(
+  greensboro_1995$Area.Weighted.Mean.Precipitation..mm.per.day., width = 2, 
+  FUN = sum, fill = NA, align = "right")
+
+#Turn into a data frame
+greensboro_1995_movingsum <- data.frame(
+  Original_Data = greensboro_1995,
+  Moving_Sum = moving_greensboro_1995
+) %>% 
+  filter(Moving_Sum > 0)
+
+#Calculate two-day annual max
+greensboro_1995_monthly <- greensboro_1995_movingsum %>% 
+  group_by(Original_Data.month) %>% 
+  summarise(twoday_max_monthly = max(Moving_Sum))
+
+#Change month to factor
+greensboro_1995_monthly$Original_Data.month <- factor(
+  greensboro_1995_monthly$Original_Data.month, 
+       levels = 1:12,
+       labels = month.abb)
+    
+#Plot the monthly two-day max precip   
+ggplot(greensboro_1995_monthly, aes(x = Original_Data.month, y = twoday_max_monthly)) +
+  geom_bar(stat = "identity", fill = "skyblue") + 
+  labs(title = "Monthly Two-Day Maximum Precipitation, Greensboro 1995", 
+       x = "Month", 
+       y = "Depth of Precipitation (mm)") +
+  geom_vline(xintercept = 6.5, linetype = "dashed", color = "red", size = 1) +
+  geom_vline(xintercept = 10.5, linetype = "dashed", color = "red", size = 1) +
+  annotate("text", x = 3, y = 75, label = "Hurricane Season", size = 3) +
+  annotate("text", x = 8.5, y = 75, label = "Frontal Season", size = 3) +
+  theme_bw()
+```
+
+```{r Block 9: Greenville 2016 and 1995 only}
+#Greenville, 2016
+greenville_2016 <- greenville %>% 
+  filter(year == 2016)
+
+#Calculate the moving sum
+moving_greenville_2016 <- rollapply(
+  greenville_2016$Area.Weighted.Mean.Precipitation..mm.per.day., width = 2, 
+  FUN = sum, fill = NA, align = "right")
+
+#Turn into a data frame
+greenville_2016_movingsum <- data.frame(
+  Original_Data = greenville_2016,
+  Moving_Sum = moving_greenville_2016
+) %>% 
+  filter(Moving_Sum > 0)
+
+#Calculate two-day annual max
+greenville_2016_monthly <- greenville_2016_movingsum %>% 
+  group_by(Original_Data.month) %>% 
+  summarise(twoday_max_monthly = max(Moving_Sum))
+
+#Change month to a factor
+greenville_2016_monthly$Original_Data.month <- factor(
+  greenville_2016_monthly$Original_Data.month, 
+       levels = 1:12,
+       labels = month.abb)
+
+#Plot the monthly two-day max precip
+ggplot(greenville_2016_monthly, aes(x = Original_Data.month, y = twoday_max_monthly)) +
+  geom_bar(stat = "identity", fill = "skyblue") + 
+  labs(title = "Monthly Two-Day Maximum Precipitation, Greenville 2016", 
+       x = "Month", 
+       y = "Depth of Precipitation (mm)") +
+  geom_vline(xintercept = 6.5, linetype = "dashed", color = "red", size = 1) +
+  geom_vline(xintercept = 10.5, linetype = "dashed", color = "red", size = 1) +
+  annotate("text", x = 3, y = 150, label = "Hurricane Season", size = 3) +
+  annotate("text", x = 8.5, y = 190, label = "Frontal Season", size = 3) +
+  theme_bw() 
+  
+#Greenville, 1995
+greenville_1995 <- greenville %>% 
+  filter(year == 1995)
+
+#Calculate the moving sum
+moving_greenville_1995 <- rollapply(
+  greenville_1995$Area.Weighted.Mean.Precipitation..mm.per.day., width = 2, 
+  FUN = sum, fill = NA, align = "right")
+
+#Turn into a data frame
+greenville_1995_movingsum <- data.frame(
+  Original_Data = greenville_1995,
+  Moving_Sum = moving_greenville_1995
+) %>% 
+  filter(Moving_Sum > 0)
+
+#Calculate two-day annual max
+greenville_1995_monthly <- greenville_1995_movingsum %>% 
+  group_by(Original_Data.month) %>% 
+  summarise(twoday_max_monthly = max(Moving_Sum))
+
+#Change month to factor
+greenville_1995_monthly$Original_Data.month <- factor(
+greenville_1995_monthly$Original_Data.month, 
+       levels = 1:12,
+       labels = month.abb)
+    
+#Plot the monthly two-day max precip   
+ggplot(greenville_1995_monthly, aes(x = Original_Data.month, y = twoday_max_monthly)) +
+  geom_bar(stat = "identity", fill = "skyblue") + 
+  labs(title = "Monthly Two-Day Maximum Precipitation, Greenville 1995", 
+       x = "Month", 
+       y = "Depth of Precipitation (mm)") +
+  geom_vline(xintercept = 6.5, linetype = "dashed", color = "red", size = 1) +
+  geom_vline(xintercept = 10.5, linetype = "dashed", color = "red", size = 1) +
+  annotate("text", x = 3, y = 90, label = "Hurricane Season", size = 3) +
+  annotate("text", x = 8.5, y = 90, label = "Frontal Season", size = 3) +
+  theme_bw()
+```
