@@ -810,8 +810,8 @@ ggplot(boone_2016_monthly, aes(x = Original_Data.month, y = twoday_max_monthly))
        y = "Depth of Precipitation (mm)") +
   geom_vline(xintercept = 6.5, linetype = "dashed", color = "red", size = 1) +
   geom_vline(xintercept = 10.5, linetype = "dashed", color = "red", size = 1) +
-  annotate("text", x = 4.5, y = 60, label = "Hurricane Season", size = 3) +
-  annotate("text", x = 8.5, y = 60, label = "Frontal Season", size = 3) +
+  annotate("text", x = 4.5, y = 60, label = "Frontal Season", size = 3) +
+  annotate("text", x = 8.5, y = 60, label = "Hurricane Season", size = 3) +
   theme_bw() 
   
 #Boone, 1995
@@ -848,8 +848,8 @@ ggplot(boone_1995_monthly, aes(x = Original_Data.month, y = twoday_max_monthly))
        y = "Depth of Precipitation (mm)") +
   geom_vline(xintercept = 6.5, linetype = "dashed", color = "red", size = 1) +
   geom_vline(xintercept = 10.5, linetype = "dashed", color = "red", size = 1) +
-  annotate("text", x = 3.5, y = 110, label = "Hurricane Season", size = 3) +
-  annotate("text", x = 8.5, y = 110, label = "Frontal Season", size = 3) +
+  annotate("text", x = 3.5, y = 110, label = "Frontal Season", size = 3) +
+  annotate("text", x = 8.5, y = 110, label = "Hurricane Season", size = 3) +
   theme_bw()
 ```
 
@@ -889,8 +889,8 @@ ggplot(greensboro_2016_monthly, aes(x = Original_Data.month, y = twoday_max_mont
        y = "Depth of Precipitation (mm)") +
   geom_vline(xintercept = 6.5, linetype = "dashed", color = "red", size = 1) +
   geom_vline(xintercept = 10.5, linetype = "dashed", color = "red", size = 1) +
-  annotate("text", x = 3, y = 80, label = "Hurricane Season", size = 3) +
-  annotate("text", x = 8.5, y = 80, label = "Frontal Season", size = 3) +
+  annotate("text", x = 3, y = 80, label = "Frontal Season", size = 3) +
+  annotate("text", x = 8.5, y = 80, label = "Hurricane Season", size = 3) +
   theme_bw() 
   
 #Greensboro, 1995
@@ -928,8 +928,8 @@ ggplot(greensboro_1995_monthly, aes(x = Original_Data.month, y = twoday_max_mont
        y = "Depth of Precipitation (mm)") +
   geom_vline(xintercept = 6.5, linetype = "dashed", color = "red", size = 1) +
   geom_vline(xintercept = 10.5, linetype = "dashed", color = "red", size = 1) +
-  annotate("text", x = 3, y = 75, label = "Hurricane Season", size = 3) +
-  annotate("text", x = 8.5, y = 75, label = "Frontal Season", size = 3) +
+  annotate("text", x = 3, y = 75, label = "Frontal Season", size = 3) +
+  annotate("text", x = 8.5, y = 75, label = "Hurricane Season", size = 3) +
   theme_bw()
 ```
 
@@ -969,8 +969,8 @@ ggplot(greenville_2016_monthly, aes(x = Original_Data.month, y = twoday_max_mont
        y = "Depth of Precipitation (mm)") +
   geom_vline(xintercept = 6.5, linetype = "dashed", color = "red", size = 1) +
   geom_vline(xintercept = 10.5, linetype = "dashed", color = "red", size = 1) +
-  annotate("text", x = 3, y = 150, label = "Hurricane Season", size = 3) +
-  annotate("text", x = 8.5, y = 190, label = "Frontal Season", size = 3) +
+  annotate("text", x = 3, y = 150, label = "Frontal Season", size = 3) +
+  annotate("text", x = 8.5, y = 190, label = "Hurricane Season", size = 3) +
   theme_bw() 
   
 #Greenville, 1995
@@ -1008,7 +1008,7 @@ ggplot(greenville_1995_monthly, aes(x = Original_Data.month, y = twoday_max_mont
        y = "Depth of Precipitation (mm)") +
   geom_vline(xintercept = 6.5, linetype = "dashed", color = "red", size = 1) +
   geom_vline(xintercept = 10.5, linetype = "dashed", color = "red", size = 1) +
-  annotate("text", x = 3, y = 90, label = "Hurricane Season", size = 3) +
-  annotate("text", x = 8.5, y = 90, label = "Frontal Season", size = 3) +
+  annotate("text", x = 3, y = 90, label = "Frontal Season", size = 3) +
+  annotate("text", x = 8.5, y = 90, label = "Hurricane Season", size = 3) +
   theme_bw()
 ```
